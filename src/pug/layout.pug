@@ -1,0 +1,24 @@
+include blocks/_header
+include blocks/_footer
+
+doctype html
+html(lang='en')
+	head
+		meta(charset='UTF-8')
+		meta(http-equiv='X-UA-Compatible', content='IE=edge')
+		meta(name='viewport' content='width=device-width, initial-scale=1')
+
+		block title
+			title Gulp boilerplate
+
+	body
+		- const layoutClasses = [];
+
+		block beforeLayout
+		.page-layout(class=layoutClasses)
+			block header
+				+header({}, ['page-layout__header'])
+			.page-layout__content
+				block content
+			block footer
+				+footer({}, ['page-layout__footer'])
