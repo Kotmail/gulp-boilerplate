@@ -1,7 +1,10 @@
+// Include fonts.
+@use './base/fonts';
+
 // Include blocks.
 
-@use './blocks/header.scss';
-@use './blocks/footer.scss';
+@use './blocks/header';
+@use './blocks/footer';
 
 // Global styles.
 
@@ -27,6 +30,7 @@ body {
   max-width: 1920px;
   min-height: 100%;
   margin: 0 auto;
+  font-family: 'Open Sans', sans-serif;
 
   &__content {
 		flex: 1 1 auto;

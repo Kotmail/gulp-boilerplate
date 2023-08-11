@@ -7,6 +7,7 @@ import sourcemaps from 'gulp-sourcemaps';
 import postCss from 'gulp-postcss';
 import autoprefixer from 'autoprefixer';
 import styleLint from 'gulp-stylelint-esm'
+import { deleteAsync } from 'del';
 
 const sass = gulpSass(dartSass);
 
@@ -52,6 +53,23 @@ export const lintScss = () => {
     }));
 }
 
+// Copying folders.
+export const copyFolders = folders => {
+  const copyFolders = () =>  {
+    return gulp.src(`./src/{${folders.join(',')}}/**`)
+      .pipe(gulp.dest('./public'));
+  }
+
+  return copyFolders;
+};
+
+// Remove folders.
+export const removeFolders = folders => {
+  const removeFolders = () => deleteAsync(folders);
+
+  return removeFolders;
+};
+
 // Watch.
 export const watch = () => {
   gulp.watch('./src/pug/**/*.pug', compilePug);
@@ -60,6 +78,8 @@ export const watch = () => {
 
 // Default.
 export default gulp.series(
+  removeFolders(['public']),
+  copyFolders(['fonts']),
   compilePug,
   lintScss,
   compileScss,
