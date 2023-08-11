@@ -10,9 +10,22 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "browserslist": [
+    "defaults"
+  ],
+  "stylelint": {
+    "extends": "stylelint-config-standard-scss"
+  },
   "devDependencies": {
+    "autoprefixer": "^10.4.14",
     "browser-sync": "^2.29.3",
     "gulp": "^4.0.2",
-    "gulp-pug": "^5.0.0"
+    "gulp-postcss": "^9.0.1",
+    "gulp-pug": "^5.0.0",
+    "gulp-sass": "^5.1.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-stylelint-esm": "^1.0.0",
+    "sass": "^1.65.1",
+    "stylelint-config-standard-scss": "^10.0.0"
   }
 }
