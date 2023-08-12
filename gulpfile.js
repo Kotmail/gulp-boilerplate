@@ -10,7 +10,12 @@ import styleLint from 'gulp-stylelint-esm'
 import { deleteAsync } from 'del';
 import imagemin from 'gulp-imagemin';
 import svgSprite from 'gulp-svg-sprite';
+import webpack from 'webpack-stream';
+import path from 'path';
+import {fileURLToPath} from 'url';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const sass = gulpSass(dartSass);
 
 // BrowserSync.
@@ -53,6 +58,32 @@ export const lintScss = () => {
         }
       ]
     }));
+}
+
+// Js.
+export const compileJs = () => {
+  return gulp.src('src/js/index.js')
+    .pipe(webpack({
+      output: {
+        filename: 'scripts.bundle.js',
+        path: path.resolve(__dirname, 'public/js'),
+      },
+      mode: 'development',
+      devtool: 'source-map',
+      module: {
+        rules: [
+          {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
+            },
+          },
+        ],
+      },
+    }))
+    .pipe(gulp.dest('public/js'))
 }
 
 // Compress images.
@@ -103,6 +134,7 @@ export const removeFolders = folders => {
 export const watcher = () => {
   gulp.watch('src/pug/**/*.pug', compilePug);
   gulp.watch('src/scss/**/*.scss', gulp.series(lintScss, compileScss));
+  gulp.watch('src/js/**/*.js', compileJs);
   gulp.watch('src/images/*.+(jpg|jpeg|png|gif)', { events: ['add', 'change'] }, compressImages);
   gulp.watch('src/images/svg/sprite-icons/*.svg', generateSvgSprite);
 }
@@ -118,6 +150,7 @@ export default gulp.series(
     ),
     compilePug,
     compileScss,
+    compileJs,
     compressImages,
     generateSvgSprite,
   ),
