@@ -11,7 +11,7 @@ html(lang='en')
 		block title
 			title Gulp boilerplate
 
-		link( rel='stylesheet' href='style.css')
+		link( rel='stylesheet' href=`${isDevelopmentMode ? 'style.css' : 'style.min.css'}`)
 
 	body
 		- const layoutClasses = [];
@@ -25,4 +25,4 @@ html(lang='en')
 			block footer
 				+footer({}, ['page-layout__footer'])
 
-		script(src='js/scripts.bundle.js')
+		script(src=`${isDevelopmentMode ? 'js/scripts.bundle.js' : 'js/scripts.bundle.min.js'}`)
