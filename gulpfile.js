@@ -28,6 +28,7 @@ const PATHS = {
     pug: 'src/pug/**/*.pug',
     scss: 'src/scss/**/*.scss',
     js: 'src/js/**/*.js',
+    fonts: 'src/fonts/**/*.+(woff|woff2)',
     img: 'src/images/*.+(jpg|jpeg|png|gif)',
     svg: 'src/images/svg/sprite-icons/*.svg',
   },
@@ -183,6 +184,10 @@ export const watcher = () => {
   gulp.watch(PATHS.watcher.pug, compilePug);
   gulp.watch(PATHS.watcher.scss, gulp.series(lintScss, compileScss));
   gulp.watch(PATHS.watcher.js, compileJs);
+  gulp.watch(PATHS.watcher.fonts, gulp.series(
+    removeFolders([`${PATHS.publicFolder}/fonts`]),
+    copyFolders(['fonts'])
+  ));
   gulp.watch(PATHS.watcher.img, { events: ['add', 'change'] }, compressImages);
   gulp.watch(PATHS.watcher.svg, generateSvgSprite);
 }
