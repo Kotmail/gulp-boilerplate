@@ -38,10 +38,6 @@ const PATHS = {
 const MODE = process.env.NODE_ENV || 'development';
 const DEST_FOLDER = MODE === 'development' ? PATHS.publicFolder : PATHS.buildFolder;
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const sass = gulpSass(dartSass);
-
 // BrowserSync.
 export const browserSyncServe = () => {
   return browserSync.init({
@@ -55,6 +51,7 @@ export const compilePug = () => {
   return gulp.src(PATHS.pug)
     .pipe(pug({
       pretty: true,
+      doctype: 'html',
       data: {
         isDevelopmentMode: MODE === 'development',
       },
@@ -64,6 +61,8 @@ export const compilePug = () => {
 
 // Scss
 export const compileScss = () => {
+  const sass = gulpSass(dartSass);
+
   if (MODE === 'production') {
     return gulp.src(PATHS.scss)
       .pipe(sass().on('error', sass.logError))
@@ -101,6 +100,9 @@ export const lintScss = () => {
 
 // Js.
 export const compileJs = () => {
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+
   return gulp.src(PATHS.js)
     .pipe(webpack({
       output: {

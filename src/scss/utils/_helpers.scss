@@ -1,0 +1,18 @@
+@use './variables' as *;
+@use './mixins' as *;
+
+.visually-hidden {
+  @include visually-hidden;
+}
+
+.d-none {
+  display: none;
+}
+
+@each $breakpoint, $value in $breakpoints {
+  @include media-up($breakpoint) {
+    .d-#{$breakpoint}-none {
+      display: none;
+    }
+  }
+}
