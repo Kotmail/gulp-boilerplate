@@ -3,7 +3,6 @@ import pug from 'gulp-pug';
 import browserSync from 'browser-sync';
 import * as dartSass from 'sass';
 import gulpSass from 'gulp-sass';
-import sourcemaps from 'gulp-sourcemaps';
 import postCss from 'gulp-postcss';
 import csso from 'postcss-csso';
 import combineMq from 'postcss-combine-media-query';
@@ -76,14 +75,12 @@ export const compileScss = () => {
       .pipe(gulp.dest(DEST_FOLDER));
   }
 
-  return gulp.src(PATHS.scss)
-    .pipe(sourcemaps.init())
+  return gulp.src(PATHS.scss, { sourcemaps: true })
     .pipe(sass().on('error', sass.logError))
     .pipe(postCss([
       autoprefixer(),
     ]))
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(DEST_FOLDER));
+    .pipe(gulp.dest(DEST_FOLDER, { sourcemaps: '.' }));
 }
 
 // Scss linting.

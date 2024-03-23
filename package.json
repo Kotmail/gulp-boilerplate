@@ -38,7 +38,6 @@
     "gulp-pug": "^5.0.0",
     "gulp-rename": "^2.0.0",
     "gulp-sass": "^5.1.0",
-    "gulp-sourcemaps": "^3.0.0",
     "gulp-stylelint-esm": "^1.0.0",
     "gulp-svg-sprite": "^2.0.3",
     "postcss-combine-media-query": "^1.0.1",
