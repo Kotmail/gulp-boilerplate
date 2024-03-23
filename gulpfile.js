@@ -21,15 +21,14 @@ const PATHS = {
   pug: 'src/pug/pages/*.pug',
   scss: 'src/scss/*.scss',
   js: 'src/js/index.js',
-  img: 'src/images/*.+(jpg|jpeg|png|gif)',
-  svg: 'src/images/svg/sprite-icons/*.svg',
+  img: ['src/images/**/*.+(jpg|jpeg|png|gif|svg)', '!src/images/svg/sprite-icons/**'],
+  svgSprite: 'src/images/svg/sprite-icons/*.svg',
   watcher: {
     pug: 'src/pug/**/*.pug',
     scss: 'src/scss/**/*.scss',
     js: 'src/js/**/*.js',
     fonts: 'src/fonts/**/*.+(woff|woff2)',
-    img: 'src/images/*.+(jpg|jpeg|png|gif)',
-    svg: 'src/images/svg/sprite-icons/*.svg',
+    img: 'src/images/**/*.+(jpg|jpeg|png|gif|svg)',
   },
   publicFolder: 'public',
   buildFolder: 'build',
@@ -134,7 +133,7 @@ export const compressImages = () => {
 
 // Svg sprite.
 export const generateSvgSprite = () => {
-  return gulp.src(PATHS.svg)
+  return gulp.src(PATHS.svgSprite)
     .pipe(svgSprite({
       mode: {
         symbol: {
@@ -185,8 +184,13 @@ export const watcher = () => {
     removeFolders([`${PATHS.publicFolder}/fonts`]),
     copyFolders(['fonts'])
   ));
-  gulp.watch(PATHS.watcher.img, { events: ['add', 'change'] }, compressImages);
-  gulp.watch(PATHS.watcher.svg, generateSvgSprite);
+  gulp.watch(PATHS.watcher.img, gulp.series(
+    removeFolders([`${PATHS.publicFolder}/images`]),
+    gulp.parallel(
+      compressImages,
+      generateSvgSprite
+    )
+  ));
 }
 
 // Build.
@@ -194,10 +198,7 @@ export const build = gulp.series(
   removeFolders([PATHS.buildFolder]),
   lintScss,
   gulp.parallel(
-    copyFolders(
-      ['fonts', 'images'],
-      ['images/svg/sprite-icons/**']
-    ),
+    copyFolders(['fonts']),
     compilePug,
     compileScss,
     compileJs,
@@ -212,10 +213,7 @@ export default gulp.series(
   removeFolders([PATHS.publicFolder, PATHS.buildFolder]),
   lintScss,
   gulp.parallel(
-    copyFolders(
-      ['fonts', 'images'],
-      ['images/svg/sprite-icons/**']
-    ),
+    copyFolders(['fonts']),
     compilePug,
     compileScss,
     compileJs,
