@@ -126,7 +126,9 @@ export const compileJs = () => {
 
 // Compress images.
 export const compressImages = () => {
-  return gulp.src(PATHS.img)
+  return gulp.src(PATHS.img, {
+    encoding: false,
+  })
     .pipe(imagemin())
     .pipe(gulp.dest(`${DEST_FOLDER}/images`));
 }
@@ -161,7 +163,9 @@ export const copyFolders = (folders, excludeFolders) => {
   }
 
   const copyFolders = () =>  {
-    return gulp.src(paths)
+    return gulp.src(paths, {
+      encoding: false,
+    })
       .pipe(gulp.dest(DEST_FOLDER));
   }
 
