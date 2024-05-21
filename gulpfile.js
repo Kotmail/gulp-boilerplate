@@ -10,10 +10,10 @@ import autoprefixer from 'autoprefixer';
 import styleLint from 'gulp-stylelint-esm'
 import { deleteAsync } from 'del';
 import imagemin from 'gulp-imagemin';
-import svgSprite from 'gulp-svg-sprite';
+import { stacksvg } from 'gulp-stacksvg';
 import webpack from 'webpack-stream';
 import path from 'path';
-import {fileURLToPath} from 'url';
+import { fileURLToPath } from 'url';
 import cacheBust from 'gulp-cache-bust';
 import rename from 'gulp-rename';
 
@@ -136,14 +136,7 @@ export const compressImages = () => {
 // Svg sprite.
 export const generateSvgSprite = () => {
   return gulp.src(PATHS.svgSprite)
-    .pipe(svgSprite({
-      mode: {
-        symbol: {
-          dest: '.',
-          sprite: 'sprite.svg',
-        },
-      },
-    }))
+    .pipe(stacksvg())
     .pipe(gulp.dest(`${DEST_FOLDER}/images/svg`));
 }
 
