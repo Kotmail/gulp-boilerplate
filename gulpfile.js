@@ -40,8 +40,8 @@ const DEST_FOLDER = MODE === 'development' ? PATHS.publicFolder : PATHS.buildFol
 // BrowserSync.
 export const browserSyncServe = () => {
   return browserSync.init({
-    server: PATHS.publicFolder,
-    watch: true,
+    server: DEST_FOLDER,
+    watch: MODE === 'development',
   });
 }
 
@@ -204,6 +204,10 @@ export const build = gulp.series(
   ),
   bustCache
 );
+
+// Preview.
+
+export const preview = browserSyncServe;
 
 // Default.
 export default gulp.series(

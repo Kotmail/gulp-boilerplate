@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development gulp",
-    "build": "cross-env NODE_ENV=production gulp build"
+    "build": "cross-env NODE_ENV=production gulp build",
+    "preview": "cross-env NODE_ENV=production gulp preview"
   },
   "keywords": [],
   "author": "",
