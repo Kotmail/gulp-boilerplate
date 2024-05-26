@@ -2,16 +2,27 @@
   "type": "module",
   "name": "gulp-boilerplate",
   "version": "1.0.0",
-  "description": "",
+  "description": "Gulp-based starter kit for modern development.",
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development gulp",
     "build": "cross-env NODE_ENV=production gulp build",
     "preview": "cross-env NODE_ENV=production gulp preview"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "javascript",
+    "css",
+    "gulp",
+    "html",
+    "scss",
+    "browsersync",
+    "pug",
+    "starter-kit",
+    "svg-sprites",
+    "esm"
+  ],
+  "author": "Vladislav Grudin",
+  "license": "MIT",
   "browserslist": [
     "defaults"
   ],
