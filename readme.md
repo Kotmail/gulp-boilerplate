@@ -44,3 +44,7 @@ npm run build
 # Starting the server to preview the build
 npm run preview
 ```
+
+## LICENSE
+
+[MIT](https://github.com/Kotmail/gulp-boilerplate/blob/master/LICENSE)
