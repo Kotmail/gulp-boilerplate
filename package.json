@@ -29,7 +29,6 @@
   "stylelint": {
     "extends": "stylelint-config-standard-scss",
     "rules": {
-      "media-feature-range-notation": "prefix",
       "selector-class-pattern": null,
       "no-descending-specificity": null
     }
@@ -54,7 +53,8 @@
     "gulp-stylelint-esm": "^2.0.0",
     "postcss-combine-media-query": "^1.0.1",
     "postcss-csso": "^6.0.1",
-    "sass": "^1.77.3",
+    "postcss-media-minmax": "^5.0.0",
+    "sass": "^1.77.4",
     "stylelint-config-standard-scss": "^13.1.0",
     "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4",

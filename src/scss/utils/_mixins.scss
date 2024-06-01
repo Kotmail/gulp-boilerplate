@@ -7,7 +7,7 @@
   $value: map.get($breakpoints, $name);
 
   @if $value {
-    @media (min-width: $value) {
+    @media (width >= $value) {
       @content;
     }
   }
@@ -17,7 +17,7 @@
   $value: map.get($breakpoints, $name);
 
   @if $value {
-    @media (max-width: ($value - 1)) {
+    @media (width < $value) {
       @content;
     }
   }
@@ -28,7 +28,7 @@
 	$max: map.get($breakpoints, $upper-name);
 
 	@if $min != null and $max != null {
-		@media (min-width: $min) and (max-width: ($max - 1)) {
+		@media ($min <= width < $max) {
 			@content;
 		}
 	}

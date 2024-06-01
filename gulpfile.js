@@ -6,6 +6,7 @@ import gulpSass from 'gulp-sass';
 import postCss from 'gulp-postcss';
 import csso from 'postcss-csso';
 import combineMq from 'postcss-combine-media-query';
+import mediaMinMax from 'postcss-media-minmax';
 import autoprefixer from 'autoprefixer';
 import styleLint from 'gulp-stylelint-esm'
 import { deleteAsync } from 'del';
@@ -68,6 +69,7 @@ export const compileScss = () => {
       .pipe(postCss([
         autoprefixer(),
         csso(),
+        mediaMinMax(),
         combineMq(),
       ]))
       .pipe(rename('style.min.css'))
@@ -88,10 +90,10 @@ export const lintScss = () => {
     .pipe(styleLint({
       reporters: [
         {
-          formatter: 'string',
+          formatter: 'compact',
           console: true,
-        }
-      ]
+        },
+      ],
     }));
 }
 
