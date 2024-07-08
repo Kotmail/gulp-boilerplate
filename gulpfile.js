@@ -90,7 +90,7 @@ export const lintScss = () => {
     .pipe(styleLint({
       reporters: [
         {
-          formatter: 'compact',
+          formatter: 'string',
           console: true,
         },
       ],
